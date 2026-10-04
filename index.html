@@ -1,0 +1,142 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>BrainWalk — Walk first. Scroll later.</title>
+<meta name="description" content="BrainWalk locks your most addictive apps until you walk. Earn your screen time with real steps.">
+<meta name="theme-color" content="#000000">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23000'/%3E%3Ctext x='32' y='42' font-family='Menlo,monospace' font-weight='700' font-size='30' text-anchor='middle'%3E%3Ctspan fill='%23fff'%3Eb%3C/tspan%3E%3Ctspan fill='%2334C759'%3Ew%3C/tspan%3E%3C/text%3E%3C/svg%3E">
+<style>html,body{margin:0;background:#000;color:#fff}</style>
+</head>
+<body>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+.bw{--bg:#000;--card:#141414;--card-border:#1f1f1f;--green:#34C759;--green-dim:#1a6b30;--text:#fff;--text-muted:#888;--text-dim:#555;
+background:var(--bg);color:var(--text);font-family:'DM Sans',-apple-system,sans-serif;-webkit-font-smoothing:antialiased;position:relative;overflow:hidden;text-align:left}
+.bw *{margin:0;padding:0;box-sizing:border-box}
+.bw .glow-top{position:absolute;top:-200px;left:50%;transform:translateX(-50%);width:800px;max-width:100%;height:500px;background:radial-gradient(ellipse,rgba(52,199,89,.08) 0%,transparent 70%);pointer-events:none}
+.bw .container{max-width:680px;margin:0 auto;padding:0 24px;position:relative;z-index:1}
+.bw nav{padding:28px 0;display:flex;justify-content:space-between;align-items:center}
+.bw .logo{display:flex;align-items:center;gap:10px;font-family:'Space Mono',monospace;font-weight:700;font-size:18px;letter-spacing:-.5px;color:var(--text);text-decoration:none}
+.bw .logo em{color:var(--green);font-style:normal}
+.bw .mark{width:30px;height:30px;border-radius:8px;background:#000;border:1px solid var(--card-border);display:flex;align-items:center;justify-content:center;font-size:13px;letter-spacing:-.5px}
+.bw .nav-pill{font-size:13px;color:var(--text-muted);background:var(--card);border:1px solid var(--card-border);padding:8px 16px;border-radius:100px;font-family:'Space Mono',monospace}
+.bw .hero{padding:100px 0 80px;text-align:center}
+.bw .badge{display:inline-flex;align-items:center;gap:8px;background:var(--card);border:1px solid var(--card-border);padding:8px 18px;border-radius:100px;font-size:13px;color:var(--text-muted);margin-bottom:32px;font-family:'Space Mono',monospace;animation:bwUp .8s ease both}
+.bw .badge-dot{width:8px;height:8px;background:var(--green);border-radius:50%;animation:bwPulse 2s ease infinite}
+@keyframes bwPulse{0%,100%{opacity:1;box-shadow:0 0 0 0 rgba(52,199,89,.4)}50%{opacity:.8;box-shadow:0 0 0 6px rgba(52,199,89,0)}}
+@keyframes bwUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+.bw h1{font-family:'DM Sans',sans-serif;font-size:clamp(44px,8vw,72px);font-weight:700;line-height:1;letter-spacing:-2.5px;margin-bottom:24px;color:var(--text);animation:bwUp .8s ease .1s both}
+.bw h1 .green{color:var(--green)}
+.bw .subtitle{font-size:19px;color:var(--text-muted);line-height:1.6;max-width:480px;margin:0 auto 48px;animation:bwUp .8s ease .2s both}
+.bw .store-btn{display:inline-flex;align-items:center;gap:10px;padding:16px 28px;border-radius:12px;background:var(--green);color:#000;font-size:15px;font-weight:700;text-decoration:none;transition:all .2s;animation:bwUp .8s ease .3s both}
+.bw a.store-btn:hover{background:#3dd864;transform:translateY(-1px);box-shadow:0 4px 20px rgba(52,199,89,.3)}
+.bw .store-btn svg{width:18px;height:18px;fill:#000}
+.bw .form-note{font-size:13px;color:var(--text-dim);margin-top:14px;text-align:center}
+.bw .form-note a{color:var(--text-muted)}
+.bw section{padding:80px 0}
+.bw .section-label{font-family:'Space Mono',monospace;font-size:12px;text-transform:uppercase;letter-spacing:3px;color:var(--green);margin-bottom:16px;text-align:center}
+.bw h2.section-title{font-family:'DM Sans',sans-serif;font-size:32px;font-weight:700;letter-spacing:-1px;text-align:center;margin-bottom:56px;color:var(--text);line-height:1.2}
+.bw .steps-grid{display:grid;grid-template-columns:1fr;gap:16px}
+.bw .step-card{background:var(--card);border:1px solid var(--card-border);border-radius:16px;padding:32px;display:flex;gap:24px;align-items:flex-start;transition:all .3s ease}
+.bw .step-card:hover{border-color:var(--green-dim);background:#181818}
+.bw .step-number{font-family:'Space Mono',monospace;font-size:32px;font-weight:700;color:var(--green);line-height:1;min-width:40px}
+.bw h3{font-family:'DM Sans',sans-serif;font-size:18px;font-weight:700;margin-bottom:8px;letter-spacing:-.3px;color:var(--text);line-height:1.3}
+.bw .step-content p,.bw .feature-card p{font-size:15px;color:var(--text-muted);line-height:1.6}
+.bw .stats-bar{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--card-border);border-radius:16px;overflow:hidden;margin:0 0 0}
+.bw .stat{background:var(--card);padding:32px 24px;text-align:center}
+.bw .stat-number{font-family:'Space Mono',monospace;font-size:36px;font-weight:700;color:var(--green);margin-bottom:6px}
+.bw .stat-label{font-size:13px;color:var(--text-muted)}
+.bw .feature-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.bw .feature-card{background:var(--card);border:1px solid var(--card-border);border-radius:16px;padding:28px}
+.bw .feature-card h3{font-size:16px}
+.bw .feature-card p{font-size:14px;line-height:1.5}
+.bw .feature-icon{font-size:28px;margin-bottom:14px}
+.bw .quote-section{padding:60px 0;text-align:center}
+.bw .quote-text{font-size:24px;font-style:italic;color:var(--text-muted);line-height:1.5;max-width:500px;margin:0 auto 12px;letter-spacing:-.3px}
+.bw .quote-author{font-family:'Space Mono',monospace;font-size:13px;color:var(--text-dim)}
+.bw .cta-section{padding:60px 0 40px;text-align:center}
+.bw .cta-box{background:var(--card);border:1px solid var(--card-border);border-radius:20px;padding:56px 40px;position:relative;overflow:hidden}
+.bw .cta-box::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,var(--green),transparent)}
+.bw .cta-box h2{font-family:'DM Sans',sans-serif;font-size:28px;font-weight:700;letter-spacing:-1px;margin-bottom:12px;color:var(--text)}
+.bw .cta-box p{color:var(--text-muted);font-size:16px;margin-bottom:32px}
+.bw .cta-box .store-btn{animation:none}
+.bw footer{padding:40px 0;text-align:center;border-top:1px solid var(--card-border);margin-top:40px}
+.bw footer p{font-size:13px;color:var(--text-dim)}
+.bw footer a{color:var(--text-muted);text-decoration:none;font-size:13px}
+.bw footer a:hover{color:var(--green)}
+.bw .footer-links{display:flex;justify-content:center;gap:24px;margin-top:12px}
+@media (max-width:600px){
+.bw .hero{padding:60px 0 50px}
+.bw section{padding:56px 0}
+.bw .feature-grid,.bw .stats-bar{grid-template-columns:1fr}
+.bw .step-card{flex-direction:column;gap:12px}
+.bw .cta-box{padding:40px 24px}
+.bw .nav-pill{font-size:11px;padding:6px 12px}
+}
+</style>
+<div class="bw">
+<div class="glow-top"></div>
+<div class="container">
+<nav>
+<a class="logo" href="./"><span class="mark"><b style="color:#fff">b</b><b style="color:#34C759">w</b></span><span class="wm">brain<em>walk</em></span></a>
+<div class="nav-pill">iOS — Coming Soon</div>
+</nav>
+<div class="hero">
+<div class="badge"><span class="badge-dot"></span>Coming soon to the App Store</div>
+<h1>Walk first.<br><span class="green">Scroll later.</span></h1>
+<p class="subtitle">BrainWalk locks your most addictive apps until you walk. Earn your screen time with real steps. No workarounds. No cheating.</p>
+<!-- When the app is live, change span → a and add href="APP_STORE_URL" -->
+<span class="store-btn"><svg viewBox="0 0 24 24"><path d="M16.37 12.6c-.02-2.2 1.8-3.26 1.88-3.31-1.03-1.5-2.62-1.7-3.19-1.73-1.36-.14-2.65.8-3.34.8-.69 0-1.75-.78-2.88-.76-1.48.02-2.85.86-3.61 2.19-1.54 2.67-.39 6.62 1.11 8.79.73 1.06 1.6 2.25 2.75 2.2 1.1-.04 1.52-.71 2.85-.71 1.33 0 1.7.71 2.87.69 1.19-.02 1.94-1.08 2.66-2.14.84-1.23 1.19-2.42 1.21-2.48-.03-.01-2.32-.89-2.31-3.54zM14.2 6.13c.61-.74 1.02-1.76.91-2.78-.88.04-1.94.59-2.57 1.32-.56.65-1.06 1.69-.93 2.69.98.08 1.98-.5 2.59-1.23z"/></svg>Coming soon on iOS</span>
+<p class="form-note">Questions? <a href="support/">Get in touch</a>.</p>
+</div>
+<section>
+<p class="section-label">How It Works</p>
+<h2 class="section-title">Three steps to freedom</h2>
+<div class="steps-grid">
+<div class="step-card"><div class="step-number">01</div><div class="step-content"><h3>Pick your brain rot apps</h3><p>Choose which apps waste your time — TikTok, Instagram, YouTube, X, Reddit. BrainWalk blocks them at the system level using Apple's Screen Time API.</p></div></div>
+<div class="step-card"><div class="step-number">02</div><div class="step-content"><h3>Walk to unlock</h3><p>Hit your step goal (default: 1,000 steps) and your locked apps unlock for 45 minutes. Real steps from Apple Health — no shaking your phone to cheat.</p></div></div>
+<div class="step-card"><div class="step-number">03</div><div class="step-content"><h3>Repeat the loop</h3><p>When your unlock window expires, apps lock again. Walk more for another round. The more you move, the more you earn. Simple.</p></div></div>
+</div>
+</section>
+<div class="stats-bar">
+<div class="stat"><div class="stat-number">2.5h</div><div class="stat-label">Avg daily social media use</div></div>
+<div class="stat"><div class="stat-number">1K</div><div class="stat-label">Steps to unlock (default)</div></div>
+<div class="stat"><div class="stat-number">45m</div><div class="stat-label">Earned screen time per walk</div></div>
+</div>
+<section>
+<p class="section-label">Why BrainWalk</p>
+<h2 class="section-title">Not another timer app</h2>
+<div class="feature-grid">
+<div class="feature-card"><div class="feature-icon">🔒</div><h3>Real system-level blocking</h3><p>Uses Apple's Screen Time API. Apps are actually locked — not hidden behind a flimsy overlay you can dismiss.</p></div>
+<div class="feature-card"><div class="feature-icon">🚶</div><h3>Steps from Apple Health</h3><p>Reads real step data from your phone sensors. No manual input, no cheating, no fake step hacks.</p></div>
+<div class="feature-card"><div class="feature-icon">🧠</div><h3>Master Key with friction</h3><p>Need emergency access? Wait 60 seconds with motivational quotes, then enter your PIN. Designed to make you reconsider.</p></div>
+<div class="feature-card"><div class="feature-icon">⚡</div><h3>Set it and forget it</h3><p>Works in the background. No need to open the app. Shields apply and remove automatically based on your steps.</p></div>
+</div>
+</section>
+<div class="quote-section">
+<p class="quote-text">"Remain seated as little as possible, put no trust in any thought that is not born in the open, to the accompaniment of free bodily motion."</p>
+<p class="quote-author">— Friedrich Nietzsche, Ecce Homo</p>
+</div>
+<div class="cta-section">
+<div class="cta-box">
+<h2>Stop scrolling. Start walking.</h2>
+<p>Coming soon to the App Store. Start with a 7-day free trial.</p>
+<span class="store-btn">Coming soon on iOS</span>
+</div>
+</div>
+<footer>
+<p>&copy; 2026 BrainWalk. All rights reserved.</p>
+<div class="footer-links">
+<a href="privacy/">Privacy Policy</a>
+<a href="terms/">Terms of Service</a>
+<a href="support/">Contact</a>
+</div>
+</footer>
+</div>
+</div>
+</body>
+</html>
